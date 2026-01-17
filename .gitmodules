@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = git@github.com:ashutosh-root0/Hearth-Vault.git
