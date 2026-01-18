@@ -13,7 +13,8 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: {
-      provider: "plausible",
+      provider: "goatcounter",
+      websiteId: "hearth"
     },
     locale: "en-US",
     baseUrl: "ashutosh-root0.github.io/hearth",
