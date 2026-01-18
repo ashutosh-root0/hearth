@@ -125,7 +125,7 @@ export default ((userOpts?: Partial<Options>) => {
         <template id="template-file">
           <li>
             <div class="file-container">
-              <img src={`${cfg.baseUrl}/static/assets/file.png`} class="file-decoration-icon" />
+              <img src={`https://${cfg.baseUrl}/static/assets/file.png`} class="file-decoration-icon" />
               <a href="#"></a>
             </div>
           </li>
