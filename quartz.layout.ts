@@ -7,9 +7,8 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [],
   footer: Component.Footer({
+    // mod : Added socials without using this 
     links: {
-      GitHub: "",
-      "Discord Community": ""
     },
   }),
 }
