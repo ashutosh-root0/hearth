@@ -147,8 +147,8 @@ export default ((userOpts?: Partial<Options>) => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-              <img src={`${cfg.baseUrl}/static/assets/close.png`} class="folder-decoration-icon closed" />
-              <img src={`${cfg.baseUrl}/static/assets/open.png`}class="folder-decoration-icon opened" />
+              <img src={`https://${cfg.baseUrl}/static/assets/close.png`} class="folder-decoration-icon closed" />
+              <img src={`https://${cfg.baseUrl}/static/assets/open.png`}class="folder-decoration-icon opened" />
               <div>
                 <button class="folder-button">
                   <span class="folder-title"></span>
