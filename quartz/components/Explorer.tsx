@@ -125,7 +125,7 @@ export default ((userOpts?: Partial<Options>) => {
         <template id="template-file">
           <li>
             <div class="file-container">
-              <img src="/static/assets/file.png" class="file-decoration-icon" />
+              <img src={`${cfg.baseUrl}/static/assets/file.png`} class="file-decoration-icon" />
               <a href="#"></a>
             </div>
           </li>
@@ -147,8 +147,8 @@ export default ((userOpts?: Partial<Options>) => {
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-              <img src="/static/assets/close.png" class="folder-decoration-icon closed" />
-              <img src="/static/assets/open.png" class="folder-decoration-icon opened" />
+              <img src={`${cfg.baseUrl}/static/assets/close.png`} class="folder-decoration-icon closed" />
+              <img src={`${cfg.baseUrl}/static/assets/open.png`}class="folder-decoration-icon opened" />
               <div>
                 <button class="folder-button">
                   <span class="folder-title"></span>
