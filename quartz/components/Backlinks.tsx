@@ -4,6 +4,9 @@ import { resolveRelative, simplifySlug } from "../util/path"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
 import OverflowListFactory from "./OverflowList"
+// @ts-ignore
+import script from "./scripts/backlinks.inline"
+import { concatenateResources } from "../util/resources"
 
 interface BacklinksOptions {
   hideWhenEmpty: boolean
@@ -30,8 +33,24 @@ export default ((opts?: Partial<BacklinksOptions>) => {
     }
     return (
       <div class={classNames(displayClass, "backlinks")}>
-        <h3>{i18n(cfg.locale).components.backlinks.title}</h3>
-        <OverflowList>
+        <button type="button" class="backlinks-header collapsed" aria-expanded="false">
+          <h3>{i18n(cfg.locale).components.backlinks.title}</h3>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="fold"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <OverflowList class="collapsed">
           {backlinkFiles.length > 0 ? (
             backlinkFiles.map((f) => (
               <li>
@@ -49,7 +68,7 @@ export default ((opts?: Partial<BacklinksOptions>) => {
   }
 
   Backlinks.css = style
-  Backlinks.afterDOMLoaded = overflowListAfterDOMLoaded
+  Backlinks.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
 
   return Backlinks
 }) satisfies QuartzComponentConstructor

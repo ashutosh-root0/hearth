@@ -2,6 +2,15 @@
 
 // put your custom CSS here!
 
+// // Bold text
+// strong {
+//   color: red; // Change this to your preferred color
+// }
+// // Italic text
+// em {
+//   color: blue; // Change this to your preferred color
+// }
+
 * {
     scrollbar-color: var(--secondary) var(--light);
 }
@@ -28,23 +37,27 @@
         outline: 1rem solid var(--light);
     }
 
-    .explorer,
-    .toc {
+    .explorer {
         padding: 1rem;
         border: 5px solid var(--lightgray);
         border-radius: 5px;
         background: var(--light);
         margin-bottom: 2rem;
     }
-     .graph{
 
+    .toc,
+    .backlinks {
+        padding: 1rem;
+        border: 5px solid var(--lightgray);
+        border-radius: 5px;
         background: var(--light);
     }
 
-     .search {
-        border: 1px solid var(--lightgray);
-        border-radius: 5px;
+    .graph {
+        background: var(--light);
+    }
 
+    .search {
         background: var(--light);
     }
 }
