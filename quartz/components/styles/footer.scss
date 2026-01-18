@@ -10,6 +10,7 @@ footer {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    margin-top: -1rem;
+    margin-top: 0 rem;
+    //mod : -margin-top : -1rem -> 0 rem
   }
 }

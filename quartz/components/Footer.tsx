@@ -56,6 +56,7 @@ export default ((opts?: Options) => {
   return Footer
 }) satisfies QuartzComponentConstructor
 
+// https://simpleicons.org/
 const GithubIcon = () => {
   return (
     <svg 
