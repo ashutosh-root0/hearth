@@ -1,5 +1,6 @@
 // Immediate initialization - runs before DOM is ready to prevent flash
-const savedColorTheme = localStorage.getItem("color-theme") ?? "default"
+// Initialised with Totoro theme
+const savedColorTheme = localStorage.getItem("color-theme") ?? "Totoro"
 document.documentElement.setAttribute("data-color-theme", savedColorTheme)
 
 // Emit theme change event
@@ -12,7 +13,7 @@ const emitColorThemeChangeEvent = (theme: string) => {
 
 // Set up event listeners after navigation (SPA support)
 document.addEventListener("nav", () => {
-    const currentTheme = localStorage.getItem("color-theme") ?? "default"
+    const currentTheme = localStorage.getItem("color-theme") ?? "Totoro"
     document.documentElement.setAttribute("data-color-theme", currentTheme)
 
     // Update active state on buttons

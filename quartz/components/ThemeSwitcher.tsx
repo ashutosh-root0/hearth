@@ -14,10 +14,8 @@ export default (() => {
         return (
             <div class={classNames(displayClass, "theme-switcher")} data-theme-count={themeNames.length}>
                 {themeNames.map((themeName) => {
-                    const colors = themeColors[themeName]
-                    // Use secondary and tertiary colors for the swatch preview
-                    const primaryColor = colors.lightMode.secondary
-                    const accentColor = colors.lightMode.tertiary
+                    // Get image path, fallback to a default if not defined
+                    const imagePath = `https://${cfg.baseUrl}/static/assets/themes/${themeName}.png`
 
                     return (
                         <button
@@ -26,10 +24,11 @@ export default (() => {
                             title={themeName}
                             aria-label={`Switch to ${themeName} theme`}
                         >
-                            <span class="theme-swatch">
-                                <span class="swatch-primary" style={`background-color: ${primaryColor};`}></span>
-                                <span class="swatch-accent" style={`background-color: ${accentColor};`}></span>
-                            </span>
+                            <img
+                                src={imagePath}
+                                alt={`${themeName} theme preview`}
+                                class="theme-preview-img"
+                            />
                         </button>
                     )
                 })}
