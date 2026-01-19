@@ -267,11 +267,16 @@ export function renderPage(
           <Body {...componentData}>
             {LeftComponent}
             <div class="center">
-              <div class="page-header">
-                <Header {...componentData}>
+              {header.length > 0 && (
+                <div class="page-header-top">
                   {header.map((HeaderComponent) => (
                     <HeaderComponent {...componentData} />
                   ))}
+                </div>
+              )}
+              <div class="page-header">
+                <Header {...componentData}>
+                  {/* Header components now rendered above */}
                 </Header>
                 <div class="popover-hint">
                   {beforeBody.map((BodyComponent) => (

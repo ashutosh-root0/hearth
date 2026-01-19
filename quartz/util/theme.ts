@@ -10,18 +10,22 @@ export interface ColorScheme {
   textHighlight: string
 }
 
-interface Colors {
+interface ThemeColors {
   lightMode: ColorScheme
   darkMode: ColorScheme
+}
+
+export interface Colors {
+  [themeName: string]: ThemeColors
 }
 
 export type FontSpecification =
   | string
   | {
-      name: string
-      weights?: number[]
-      includeItalic?: boolean
-    }
+    name: string
+    weights?: number[]
+    includeItalic?: boolean
+  }
 
 export interface Theme {
   typography: {
@@ -70,9 +74,9 @@ function formatFontSpecification(
   if (weights.length > 1) {
     const weightSpec = italic
       ? weights
-          .flatMap((w) => [`0,${w}`, `1,${w}`])
-          .sort()
-          .join(";")
+        .flatMap((w) => [`0,${w}`, `1,${w}`])
+        .sort()
+        .join(";")
       : weights.join(";")
 
     features.push(`wght@${weightSpec}`)
@@ -141,36 +145,55 @@ export async function processGoogleFonts(
 }
 
 export function joinStyles(theme: Theme, ...stylesheet: string[]) {
+  const themeNames = Object.keys(theme.colors)
+
+  // Generate CSS for each color theme
+  const generateThemeCSS = (themeName: string, themeColors: { lightMode: ColorScheme, darkMode: ColorScheme }, isDefault: boolean) => {
+    const selector = isDefault ? ':root, :root[data-color-theme="default"]' : `:root[data-color-theme="${themeName}"]`
+    const darkSelector = isDefault ? ':root[saved-theme="dark"], :root[data-color-theme="default"][saved-theme="dark"]' : `:root[data-color-theme="${themeName}"][saved-theme="dark"]`
+
+    return `
+${selector} {
+  --light: ${themeColors.lightMode.light};
+  --lightgray: ${themeColors.lightMode.lightgray};
+  --gray: ${themeColors.lightMode.gray};
+  --darkgray: ${themeColors.lightMode.darkgray};
+  --dark: ${themeColors.lightMode.dark};
+  --secondary: ${themeColors.lightMode.secondary};
+  --tertiary: ${themeColors.lightMode.tertiary};
+  --highlight: ${themeColors.lightMode.highlight};
+  --textHighlight: ${themeColors.lightMode.textHighlight};
+}
+
+${darkSelector} {
+  --light: ${themeColors.darkMode.light};
+  --lightgray: ${themeColors.darkMode.lightgray};
+  --gray: ${themeColors.darkMode.gray};
+  --darkgray: ${themeColors.darkMode.darkgray};
+  --dark: ${themeColors.darkMode.dark};
+  --secondary: ${themeColors.darkMode.secondary};
+  --tertiary: ${themeColors.darkMode.tertiary};
+  --highlight: ${themeColors.darkMode.highlight};
+  --textHighlight: ${themeColors.darkMode.textHighlight};
+}`
+  }
+
+  // Generate CSS for all themes
+  const themeCSS = themeNames.map((name) => {
+    const isDefault = name === "default" || (name === themeNames[0] && !theme.colors["default"])
+    return generateThemeCSS(name, theme.colors[name], isDefault)
+  }).join("\n")
+
   return `
 ${stylesheet.join("\n\n")}
 
 :root {
-  --light: ${theme.colors.lightMode.light};
-  --lightgray: ${theme.colors.lightMode.lightgray};
-  --gray: ${theme.colors.lightMode.gray};
-  --darkgray: ${theme.colors.lightMode.darkgray};
-  --dark: ${theme.colors.lightMode.dark};
-  --secondary: ${theme.colors.lightMode.secondary};
-  --tertiary: ${theme.colors.lightMode.tertiary};
-  --highlight: ${theme.colors.lightMode.highlight};
-  --textHighlight: ${theme.colors.lightMode.textHighlight};
-
   --titleFont: "${getFontSpecificationName(theme.typography.title || theme.typography.header)}", ${DEFAULT_SANS_SERIF};
   --headerFont: "${getFontSpecificationName(theme.typography.header)}", ${DEFAULT_SANS_SERIF};
   --bodyFont: "${getFontSpecificationName(theme.typography.body)}", ${DEFAULT_SANS_SERIF};
   --codeFont: "${getFontSpecificationName(theme.typography.code)}", ${DEFAULT_MONO};
 }
 
-:root[saved-theme="dark"] {
-  --light: ${theme.colors.darkMode.light};
-  --lightgray: ${theme.colors.darkMode.lightgray};
-  --gray: ${theme.colors.darkMode.gray};
-  --darkgray: ${theme.colors.darkMode.darkgray};
-  --dark: ${theme.colors.darkMode.dark};
-  --secondary: ${theme.colors.darkMode.secondary};
-  --tertiary: ${theme.colors.darkMode.tertiary};
-  --highlight: ${theme.colors.darkMode.highlight};
-  --textHighlight: ${theme.colors.darkMode.textHighlight};
-}
+${themeCSS}
 `
 }
