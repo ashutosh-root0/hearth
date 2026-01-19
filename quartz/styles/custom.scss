@@ -11,6 +11,24 @@
 //   color: blue; // Change this to your preferred color
 // }
 
+@font-face {
+    font-family: "Victor Mono";
+    src: url("./static/fonts/VictorMono-Regular.woff2") format(woff2);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Victor Mono";
+    src: url("./static/fonts/VictorMono-Bold.woff2") format(woff2);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Victor Mono";
+    src: url("./static/fonts/VictorMono-SemiBold.woff2") format(woff2);
+    font-weight: 600;
+}
+
 * {
     scrollbar-color: var(--secondary) var(--light);
 }
